@@ -5,60 +5,23 @@
  * Date: 2/21/16
  * Time: 10:08 AM
  */
-
+require "../data/hiMem.php";
 class ticker
 {
-  private $value;
-  public static function tickerValue() {
-    $instance = static::sharedInstance();
-    $result = $instance->getAndIncrementTicker();
-    return $result;
-  }
+  private static $key = "ticker";
 
-  private function getAndIncrementTicker()
+  private static function memcache() {
+    return hiMem::memcache();
+  }
+  public static function tickerValue()
   {
-    if (null === $this->value) {
-      $this->value = 0;
+    $mem = static::memcache();
+    if(!$mem->get(static::$key)) {
+      $mem->set(static::$key, 0); // NOTE: Can't set a negative number here
     }
-    return $this->value++;
+    return $mem->increment(static::$key);
   }
-
-  private static $instance;
-
-
-  public static function sharedInstance()
-  {
-    if (null === static::$instance) {
-      static::$instance = new static();
-    }
-
-    return static::$instance;
+  public static function resetTicker() {
+    $mem = static::memcache();
   }
-
-  protected function __construct()
-  {
-  }
-
-  /**
-   * Private clone method to prevent cloning of the instance of the
-   * *Singleton* instance.
-   *
-   * @return void
-   */
-  private function __clone()
-  {
-  }
-
-  /**
-   * Private unserialize method to prevent unserializing of the *Singleton*
-   * instance.
-   *
-   * @return void
-   */
-  private function __wakeup()
-  {
-  }
-
-
-
 }

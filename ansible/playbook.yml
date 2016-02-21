@@ -1,0 +1,14 @@
+- name: Apply Webserver role to the webservers
+  hosts: webserverhosts
+
+  roles:
+  - webserver
+
+#- name: Apply mysql role to the mysql hosts
+  #hosts: mysqlhosts
+- name: Apply Cacheserver role to the cacheservers
+  hosts: cacheserverhosts
+
+  roles:
+  - cacheserver
+

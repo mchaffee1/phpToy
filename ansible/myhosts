@@ -1,0 +1,2 @@
+[webserverhosts]
+192.168.242.42 ansible_connection=ssh ansible_user=chaf ansible_sudo_pass='p@ssw0rd'

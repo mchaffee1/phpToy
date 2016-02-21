@@ -1,0 +1,9 @@
+- name: update apt cache
+  apt: update_cache=yes cache_valid_time=3600
+  become: yes
+
+- name: install required software
+  apt: name={{ item }} state=present
+  become: yes
+  with_items:
+    - memcached

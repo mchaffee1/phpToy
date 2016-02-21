@@ -1,0 +1,52 @@
+- name: Update apt cache
+  apt: update_cache=yes cache_valid_time=3600
+  become: yes
+
+- name: Install required software
+  apt: name={{ item }} state=present
+  become: yes
+  with_items:
+    - apache2=2.4.7-1ubuntu4.9 
+    - php5-mysql
+    - php5
+    - libapache2-mod-php5
+    - php5-mcrypt
+    - python-mysqldb
+    - php5-gd
+    - libssh2-php
+    - git
+    - collectd
+    - collectd-utils
+
+- name: enable mod_rewrite
+  apache2_module: name=rewrite state=present
+  become: yes
+  notify:
+    - restart apache
+
+- name: get current_path
+  shell: pwd
+  register: current_path
+
+- name: set base_path
+  set_fact:
+    base_path: "{{ current_path.stdout }}/hello/"
+
+- debug: msg="base_path is {{ base_path }}"
+
+- name: create target directory
+  file: path="{{ base_path }}" state=directory mode=0755
+
+- name: symlink target to /var/www/html/hello
+  file: src="{{ base_path }}" dest=/var/www/html/hello state=link
+  become: yes
+
+- name: install composer
+  shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  args:
+    creates: /usr/local/bin/composer
+  become: true
+
+- name: Run the composer at the top level
+  composer: command=install no_dev=no working_dir="{{ base_path }}/"
+

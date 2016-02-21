@@ -1,0 +1,5 @@
+[webserverhosts]
+{{ servers }}
+
+[cacheserverhosts]
+{{ cacheservers }}

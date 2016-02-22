@@ -1,1 +1,0 @@
-{"virtualbox":{"/home/vagrant/phpToy":{"guestpath":"/home/vagrant/phpToy","hostpath":"/Users/chaf/Develop/php/phpToy","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/chaf/Develop/php/phpToy/vagrant","disabled":false,"__vagrantfile":true}}}

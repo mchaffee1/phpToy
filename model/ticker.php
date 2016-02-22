@@ -17,7 +17,7 @@ class ticker
   {
     $mem = static::memcache();
     if(!$mem->get(static::$key)) {
-      $mem->set(static::$key, 0); // NOTE: Can't set a negative number here
+      $mem->set(static::$key, 0); // NOTE: negative numbers are not stored to memcache as numeric and that breaks things.
     }
     return $mem->increment(static::$key);
   }

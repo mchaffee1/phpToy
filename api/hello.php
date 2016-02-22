@@ -12,6 +12,6 @@ function get() {
   echo json_encode($a, JSON_UNESCAPED_UNICODE);
 }
 
-get()
+get(); // This here will eventually be a switch on the request type.
 
 ?>

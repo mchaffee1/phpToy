@@ -5,7 +5,6 @@
  * Date: 2/21/16
  * Time: 10:08 AM
  */
-require "../data/hiMem.php";
 class ticker
 {
   private static $key = "ticker";
@@ -23,5 +22,6 @@ class ticker
   }
   public static function resetTicker() {
     $mem = static::memcache();
+    $mem->flush();
   }
 }

@@ -34,15 +34,15 @@
 
 - name: set base_path
   set_fact:
-    base_path: "{{ current_path.stdout }}/hello/"
+    base_path: "{{ current_path.stdout }}/phpToy/"
 
 - debug: msg="base_path is {{ base_path }}"
 
 - name: create target directory
   file: path="{{ base_path }}" state=directory mode=0755
 
-- name: symlink target to /var/www/html/hello
-  file: src="{{ base_path }}" dest=/var/www/html/hello state=link
+- name: symlink target to /var/www/html/phpToy
+  file: src="{{ base_path }}" dest=/var/www/html/phpToy state=link
   become: yes
 
 - name: install composer
